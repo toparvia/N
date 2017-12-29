@@ -1,0 +1,36 @@
+---
+title: "Analyses"
+author: "Tuure Parviainen"
+date: "December 29, 2017"
+email: "tuure.parviainen@helsinki.fi"
+output:
+  html_document:
+    theme: simplex
+    css: styles.css
+    toc: true
+    toc_depth: 2
+    fig_caption: true
+    fig_width: 6
+    fig_height: 4
+    code_folding: hide
+    future: true
+    encoding: UTF-8
+
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+***
+  
+```{r child = "1.NitrogenAnalysis.Rmd"}
+```
+  
+***
+---
+
+
+
+
