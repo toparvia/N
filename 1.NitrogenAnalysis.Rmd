@@ -1,24 +1,17 @@
 ---
-title: "IODS-Final"
+title: "N-analysis"
 author: "Tuure Parviainen"
-date: "December 13, 2017"
+date: "January 14, 2017"
 output: html_document
 ---
 # Nitrogen analysis
 
 ### Abstract
-Data preparation and model comparison of prediction methods using the Boston dataset. The dataset consist of housing in the area of Boston and numerous demographic variables connected with housing prices and nitrous oxide concentration. The target variable was the latter and best method **linear regression** achived **77.6%** accuracy. This model seems usable to predict the cases with reasonable accuracy. However, the best models achieve even better results using the [machine learning methodology](https://olegleyz.github.io/boston_housing.html).
+We are looking at the nitrates in soil in a multi-year field growing experiment. The dataset consist of six  different fertilizer treatments. There are four plant treatments. The target variables were nitrate and sulfur in the soil. Leaching of the nitrogen was reduced by added carbon in first year **x** second year **y** and third year **z** amount in autumn. The fertilizers increased sulfphate after fertilization, but in three years there was trace amounts.
 
+Most of the analyses are written in Finnish.
 
-Today we are looking at the Boston **nitrogen oxides concentration**.
-
-We know from the previous analysis that nitrogen oxides concentration is connected with the variables in the dataset. 
-
-1. My hypothesis is that we are able to predict the nitrogen oxides concentration by using variables included in the dataset.
-2. My aim is to pick minimun number of parameters in final model to predict the concentration with highest accuracy.
-3. I will provide model comparison in the end of the exercise for the dataset.
-
-### Boston Data set information:
+### Legend:
 
 Variables     | Description
 ----------    | --------------------------------------
@@ -113,15 +106,14 @@ p + geom_point(aes(fill = lan)) +theme_tufte()+geom_rangeframe(color="black") +
 
 **TOC/N**
 In table:
-Käsittelyt                S1  S2  S3  S4  Min C 
 
-Kokonaistyppi             298 231 230 355 0   0      
-
-Lisätty liukoinen typpi   17  15  28  28  0   0
-
-TOC/N                     66  77  55  61  <1  0
-
-TOC/Liukoinen N           1145 1159  444  773    <1    0
+Käsittelyt    | S1  |S2 | S3 | S4 | Min |  C 
+--------    |----|----|----|----|-----|----
+Käsittelyt                | S1 | S2  | S3 | S4  | Min | C 
+Kokonaistyppi             | 298 | 231 | 230 | 355 | 0 |  0      
+Lisätty liukoinen typpi   | 17 | 15 |  28 | 28  | 0 |  0
+TOC/N                     | 66  | 77  | 55  | 61  | <1  | 0
+TOC/Liukoinen N           | 1145 | 1159 | 444 | 773 | <1  |  0
 
 Vaikka lannoitteet sisältävät eri määrän liukoista typpeä ovat niiden hiilityppisuhteet (TOC/N) verrattain samankaltaisia.
 
