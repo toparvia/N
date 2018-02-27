@@ -1,4 +1,5 @@
 28.12.2017 d1alln line 130 corrected. was 110.0	ammN 11.0 nitN 121.0 liuN -->  1.1 ammN	 11.0 nitN  12.1   liuN
 also line 47 ammN changed from 29 to 2.9 as it is not plausible. These are changes are done, because it seems to be typo with comma.
+27.2.2018 All data is now in Nall_27.2.2018.txt/xlsx -file.
 		
 

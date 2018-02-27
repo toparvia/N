@@ -1,27 +1,33 @@
 ---
-title: "N-analysis"
+title: "Nitraattianalyysit"
 author: "Tuure Parviainen"
 date: "January 14, 2017"
 output: html_document
 ---
-# Nitrogen analysis
+# Nitraattianalyysit
 
-### Abstract
+### Tiivistelmä
+
+Aineistona on kolmevuotinen kenttäkoe. Kokeessa oli mukana kuusi lannoituskäsittelyä ja neljä kasvikäsittelyä.
+Kokessa tarkasteltiin lannoitteiden ja kasvikäsittelyiden vaikutusta nitraatti- ja sulfaattipitoisuuksiin peltomaassa. Typenhuuhtouma väheni mahdollisesti lisätyn typen vaikutuksesta ensimmäisenä vuonna  **x**, toisena vuonna **y** ja kolmantena vuonna **z**. Mittaukset tehtiin keväällä ja syksyllä. Lannoitteet lisäsivät sulfaattipitoisuuksia ensimmäisenä vuonna **x2**, mutta kolmen vuoden jälkeen sulfaattipitoisuus oli palautunut alkuperäiselle tasolle.
+
 We are looking at the nitrates in soil in a multi-year field growing experiment. The dataset consist of six  different fertilizer treatments. There are four plant treatments. The target variables were nitrate and sulfur in the soil. Leaching of the nitrogen was reduced by added carbon in first year **x** second year **y** and third year **z** amount in autumn. The fertilizers increased sulfphate after fertilization, but in three years there was trace amounts.
 
 Most of the analyses are written in Finnish.
 
-### Legend:
+### Selite:
 
-Variables     | Description
+Muuttujat     | Kuvaus
 ----------    | --------------------------------------
 ker           | Kerranteet
 kas           | Kasvi käsittelyt: "R", "KK", "P", "AK" 
 lan           | Lannoite käsittelyt: "S1", "S2", "S3","S4", "Min", "C"
-time          | Aika: "29.9.2015", "23.10.2015", "15.11.2015", "22.4.2016", "12.9.2016", "xx.10.2017"
+time          | Aika: "29.9.2015", "23.10.2015", "15.11.2015", "22.4.2016", "12.9.2016", "16.10.2017*"
 nitN          | Nitraattipitoisuus
 TOCN          | Hiilityppisuhde
 LisC          | Lisatty kokonaistyppi
+
+Viimeiset näytteet otettiin kahdessa erässä 16.10.2017 ja 21.10.2017.
 
 ## Data exploration
 
@@ -34,7 +40,7 @@ packages(packages_to_load, prompt = TRUE) # lock'n'load install/load
 ```
 
 ```{r, message=FALSE, warning=FALSE}
-Kuitub <- read.table(file = "d1alln2017.txt",
+Kuitub <- read.table(file = "Nall_27.2.2018.txt",
                      header = TRUE,
                      dec = ".")
 
@@ -65,7 +71,7 @@ Kuitub$kas <- factor(Kuitub$kas,
 #Giving labes time
 Kuitub$time <- factor(Kuitub$time,
                       levels = c(1,2,3,4,5,6),
-                      labels = c("29.9.2015", "23.10.2015", "15.11.2015", "22.4.2016", "12.9.2016", "xx.10.2017"))
+                      labels = c("29.9.2015", "23.10.2015", "15.11.2015", "22.4.2016", "12.9.2016", "16.10.2017"))
 
 
 ```
@@ -88,10 +94,10 @@ p + geom_boxplot(aes(fill = lan)) +theme_tufte()+geom_rangeframe(color="black") 
 Kaikkien käsittelyiden lannoituskäsittelyiden keskimääräiset erot
 
 ```{r, message=FALSE, warning=FALSE}
-Kuitub2 = Kuitub[ which(Kuitub$time=="xx.10.2017"), ]
+Kuitub2 = Kuitub[ which(Kuitub$time=="16.10.2017"), ]
 p <- ggplot(Kuitub2, aes(kas, nitN))
 p + geom_boxplot(aes(fill = lan)) +theme_tufte()+geom_rangeframe(color="black") +
-  ggtitle("xx.10.2017 Nitrate NO3- (mg/kg) means with standard deviation")
+  ggtitle("16.10.2017 Nitrate NO3- (mg/kg) means with standard deviation")
 
 ```
 
