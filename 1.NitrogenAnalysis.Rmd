@@ -1,17 +1,25 @@
 ---
-title: "Nitraattianalyysit"
+title: "Tulokset"
 author: "Tuure Parviainen"
 date: "January 14, 2017"
 output: html_document
 ---
-# Nitraattianalyysit
+# Tulokset
 
 ### Tiivistelmä
 
-Aineistona on kolmevuotinen kenttäkoe. Kokeessa oli mukana kuusi lannoituskäsittelyä ja neljä kasvikäsittelyä.
-Kokessa tarkasteltiin lannoitteiden ja kasvikäsittelyiden vaikutusta nitraatti- ja sulfaattipitoisuuksiin peltomaassa. Typenhuuhtouma väheni mahdollisesti lisätyn typen vaikutuksesta ensimmäisenä vuonna  **x**, toisena vuonna **y** ja kolmantena vuonna **z**. Mittaukset tehtiin keväällä ja syksyllä. Lannoitteet lisäsivät sulfaattipitoisuuksia ensimmäisenä vuonna **x2**, mutta toisen vuoden jälkeen sulfaattipitoisuus oli palautunut alkuperäiselle tasolle.
+**TO DO**
 
-We are looking at the nitrates in soil in a multi-year field growing experiment. The dataset consist of six  different fertilizer treatments. There are four plant treatments. The target variables were nitrate and sulfur in the soil. Leaching of the nitrogen was reduced by added carbon in first year **x** second year **y** and third year **z** amount in autumn. The fertilizers increased sulfphate after fertilization, but in three years there was trace amounts.
+Laske hehtaarikohtaiset erot
+Laske erot vuosien valilla s1-4 vs mineraali
+Laske kasvikasittelyjen erot
+Tee kuva kasvieroista?
+GLM tai Mixed malli jossa aika ja hiilityppisuhde?
+
+Aineistona on kolmevuotinen kenttäkoe. Kokeessa oli mukana kuusi lannoituskäsittelyä ja neljä kasvikäsittelyä.
+Kokessa tarkasteltiin lannoitteiden ja kasvikäsittelyiden vaikutusta nitraatti- ja sulfaattipitoisuuksiin peltomaassa. Typenhuuhtouma väheni mahdollisesti lisätyn typen vaikutuksesta ensimmäisenä vuonna  **x**, toisena vuonna **y** ja kolmantena vuonna **z**. Mittaukset tehtiin syksyllä ja kerran kevaalla. Lannoitteet lisäsivät sulfaattipitoisuuksia ensimmäisenä vuonna **x2**, mutta toisen vuoden jälkeen sulfaattipitoisuus oli palautunut alkuperäiselle tasolle.
+
+We are looking at the nitrates in soil in a multi-year field growing experiment. The dataset consist of six  different fertilizer treatments. There are four plant treatments. The target variables were nitrate and sulfur in the soil. Leaching of the nitrogen was reduced by added carbon in first year **x** second year **y** and third year **z** amount in autumn. The fertilizers increased sulfphate after fertilization, but after second year there were trace amounts.
 
 The analyses are written in Finnish.
 
@@ -29,7 +37,7 @@ LisC          | Lisatty kokonaistyppi
 
 Viimeiset näytteet otettiin kahdessa erässä 16.10.2017 ja 21.10.2017.
 
-## Data exploration
+## Datan luonnehdinta
 
 ```{r, message=FALSE, warning=FALSE}
 
@@ -124,6 +132,7 @@ TOC/Liukoinen N           | 1145 | 1159 | 444 | 773 | <1  |  0
 Vaikka lannoitteet sisältävät eri määrän liukoista typpeä ovat niiden hiilityppisuhteet (TOC/N) verrattain samankaltaisia.
 
 ```{r, message=FALSE, warning=FALSE}
+KuituR  = Kuitub[complete.cases(Kuitub), ]
 agg = ddply(Kuitub, .(kas, lan, time), function(x){
   c(mean=mean(x$nitN), sd = sd(x$nitN))
 })
@@ -163,7 +172,49 @@ print(gline_final + theme(axis.text.x = element_text(angle=60, hjust=1)))
 
 Kaikki käsittelyt graafisesti esitettynä. Erot ovat aluksi suurempia ja pienevät kohti kokeen loppua. 12.9.2016 erot ovat toisinpäin. Todennäköisesti typpi on alkanut vapautua orgaanisesta aineesta.
 
+```{r, message=FALSE, warning=FALSE}
+#Sulfaattigraafi
+KuituR  = Kuitub[complete.cases(Kuitub), ]
+agg = ddply(KuituR, .(kas, lan, time), function(x){
+  c(mean=mean(x$Smgkg), sd = sd(x$Smgkg))
+})
+
+#agg #contains all nitN treatment means and standard deviations
+#write.table(agg, "nitNmeans6times.txt", sep="\t")
+
+agg$lower = agg$mean + agg$sd
+agg$upper = agg$mean - agg$sd
+
+#agg #contains mean, sd, upr, and lwr confidence levels
+
+pd <- position_dodge(width = 0.2) # move them .2 to the left and right
+
+agg$num_time = NA
+agg$num_time = as.numeric(agg$time)
+
+gbase  = ggplot(agg, aes(y=mean, colour=lan, x=agg$num_time)) +
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.3, position=pd) +
+  geom_point(position=pd) + facet_wrap(~ kas, ncol=2)
+gline = gbase + geom_line(position=pd) #+ ylim(0, 25)
+
+
+
+#for all graphs
+gline = gline %+% agg
+
+gline_final = gline + scale_x_continuous(breaks= 1:length(agg$time), labels = agg$time) +
+  labs(x = "Aika", y = "Sulfaatin SO4 (mg/kg) keskiarvo sekä keskihajonta")+
+  theme_tufte()+
+  geom_rangeframe(color="black")
+
+#Final graph
+print(gline_final + theme(axis.text.x = element_text(angle=60, hjust=1)))
+```
+Sulfaattit eroavat ensimmaisina mittausajankohtina, kunnes 2016 syksylla erot haviavat.
+
 ## Analyysit
+
+Tassa muutama esimerkki.
 
 ```{r, message=FALSE, warning=FALSE}
 # DATA...
@@ -262,7 +313,7 @@ raw_plot <- raw_plot + theme_tufte(base_size=18)+geom_rangeframe(color="black")
 # summary_data$treatment <- factor(summary_data$treatment, levels=("S1", "S2", "S3", "S4", "Min", "C"))
 
 #Make labels
-summary_data$labels <- c("a","a","a","a","b","c")
+summary_data$labels <- c("a","a","a","a","a","a")
 
 
 combined_plot <- raw_plot + geom_point(data=summary_data, aes(x=lan,y=avg_value), colour="black", size=3)
