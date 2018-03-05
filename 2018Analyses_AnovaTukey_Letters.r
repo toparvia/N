@@ -118,6 +118,7 @@ Kuitub16.10.2017AK = Kuitub[ which(Kuitub$time=='16.10.2017' & Kuitub$kas == "AK
 
 ############################################################################
 #Statistics
+############################################################################
 # All plants
 # Anova
 AKuitub29.9.2015 <- aov(nitN ~ factor(lan) + factor(ker),
@@ -132,20 +133,6 @@ AKuitub12.9.2016 <- aov(nitN ~ factor(lan) + factor(ker),
                          data = Kuitub12.9.2016)
 AKuitub16.10.2017 <- aov(nitN ~ factor(lan) + factor(ker),
                           data = Kuitub16.10.2017)
-# Lannoitus * kasvi
-# Anova
-AKuitub29.9.2015Mult <- aov(nitN ~ factor(lan) * factor(kas) + factor(ker),
-                        data = Kuitub29.9.2015)
-AKuitub23.10.2015Mult <- aov(nitN ~ factor(lan) *factor(kas) + factor(ker),
-                         data = Kuitub23.10.2015)
-AKuitub15.11.2015Mult <- aov(nitN ~ factor(lan) *factor(kas) + factor(ker),
-                         data = Kuitub15.11.2015)
-AKuitub22.4.2016Mult <- aov(nitN ~ factor(lan) * factor(kas) + factor(ker),
-                        data = Kuitub22.4.2016)
-AKuitub12.9.2016Mult <- aov(nitN ~ factor(lan) * factor(kas) + factor(ker),
-                        data = Kuitub12.9.2016)
-AKuitub16.10.2017Mult <- aov(nitN ~ factor(lan) *factor(kas) + factor(ker),
-                         data = Kuitub16.10.2017)
 
 #Tukey
 TKuitub29.9.2015 <- TukeyHSD(AKuitub29.9.2015,   "factor(lan)", conf.level = 0.95)
@@ -163,6 +150,40 @@ Label22.4.2016 <-generate_label_df(TKuitub22.4.2016,   "factor(lan)")
 Label12.9.2016 <-generate_label_df(TKuitub12.9.2016,   "factor(lan)")
 Label16.10.2017 <-generate_label_df(TKuitub16.10.2017, "factor(lan)")
 
+############################################################################
+
+# Lannoitus * kasvi
+# Anova
+AKuitub29.9.2015Mult <- aov(nitN ~ factor(lan) * factor(kas) + factor(ker),
+                            data = Kuitub29.9.2015)
+AKuitub23.10.2015Mult <- aov(nitN ~ factor(lan) *factor(kas) + factor(ker),
+                             data = Kuitub23.10.2015)
+AKuitub15.11.2015Mult <- aov(nitN ~ factor(lan) *factor(kas) + factor(ker),
+                             data = Kuitub15.11.2015)
+AKuitub22.4.2016Mult <- aov(nitN ~ factor(lan) * factor(kas) + factor(ker),
+                            data = Kuitub22.4.2016)
+AKuitub12.9.2016Mult <- aov(nitN ~ factor(lan) * factor(kas) + factor(ker),
+                            data = Kuitub12.9.2016)
+AKuitub16.10.2017Mult <- aov(nitN ~ factor(lan) *factor(kas) + factor(ker),
+                             data = Kuitub16.10.2017)
+
+#Tukey
+TKuitub29.9.2015Mult <- TukeyHSD(AKuitub29.9.2015Mult,   "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub23.10.2015Mult <- TukeyHSD(AKuitub23.10.2015Mult, "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub15.11.2015Mult <- TukeyHSD(AKuitub15.11.2015Mult, "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub22.4.2016Mult <- TukeyHSD(AKuitub22.4.2016Mult,   "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub12.9.2016Mult <- TukeyHSD(AKuitub12.9.2016Mult,   "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub16.10.2017Mult <- TukeyHSD(AKuitub16.10.2017Mult, "factor(lan):factor(kas)", conf.level = 0.95)
+#Group differences, labels
+#Labels
+Label29.9.2015Mult <-generate_label_df(TKuitub29.9.2015Mult,   "factor(lan):factor(kas)")
+Label23.10.2015Mult <-generate_label_df(TKuitub23.10.2015Mult, "factor(lan):factor(kas)")
+Label15.11.2015Mult <-generate_label_df(TKuitub15.11.2015Mult, "factor(lan):factor(kas)")
+Label22.4.2016Mult <-generate_label_df(TKuitub22.4.2016Mult,   "factor(lan):factor(kas)")
+Label12.9.2016Mult <-generate_label_df(TKuitub12.9.2016Mult,   "factor(lan):factor(kas)")
+Label16.10.2017Mult <-generate_label_df(TKuitub16.10.2017Mult, "factor(lan):factor(kas)")
+
+############################################################################
 # R plants
 #Anova
 AKuitub29.9.2015R <- aov(nitN ~ factor(lan)  + factor(ker),
@@ -362,3 +383,94 @@ SummaryResultsSulfate$lower = SummaryResultsSulfate$mean + SummaryResultsSulfate
 SummaryResultsSulfate$upper = SummaryResultsSulfate$mean - SummaryResultsSulfate$sd
 
 write.table(SummaryResultsSulfate, "rawresult/SummaryResultsSulfate.csv")
+
+############################################################################
+# SULFAATIT
+############################################################################
+# All plants
+# Anova
+AKuitub29.9.2015 <- aov(Smgkg ~ factor(lan) + factor(kas),
+                        data = Kuitub29.9.2015)
+AKuitub23.10.2015 <- aov(Smgkg ~ factor(lan) + factor(kas),
+                         data = Kuitub23.10.2015)
+AKuitub15.11.2015 <- aov(Smgkg ~ factor(lan) + factor(kas),
+                         data = Kuitub15.11.2015)
+AKuitub22.4.2016 <- aov(Smgkg ~ factor(lan) + factor(kas),
+                        data = Kuitub22.4.2016)
+AKuitub12.9.2016 <- aov(Smgkg ~ factor(lan) + factor(kas),
+                        data = Kuitub12.9.2016)
+
+
+#Tukey
+TKuitub29.9.2015 <- TukeyHSD(AKuitub29.9.2015,   "factor(lan)", conf.level = 0.95)
+TKuitub23.10.2015 <- TukeyHSD(AKuitub23.10.2015, "factor(lan)", conf.level = 0.95)
+TKuitub15.11.2015 <- TukeyHSD(AKuitub15.11.2015, "factor(lan)", conf.level = 0.95)
+TKuitub22.4.2016 <- TukeyHSD(AKuitub22.4.2016,   "factor(lan)", conf.level = 0.95)
+TKuitub12.9.2016 <- TukeyHSD(AKuitub12.9.2016,   "factor(lan)", conf.level = 0.95)
+
+#Group differences, labels
+#Labels
+Label29.9.2015 <-generate_label_df(TKuitub29.9.2015,   "factor(lan)")
+Label23.10.2015 <-generate_label_df(TKuitub23.10.2015, "factor(lan)")
+Label15.11.2015 <-generate_label_df(TKuitub15.11.2015, "factor(lan)")
+Label22.4.2016 <-generate_label_df(TKuitub22.4.2016,   "factor(lan)")
+Label12.9.2016 <-generate_label_df(TKuitub12.9.2016,   "factor(lan)")
+
+
+# Lannoitus * kasvi
+# Anova
+AKuitub29.9.2015Mult <- aov(Smgkg ~ factor(lan) * factor(kas) + factor(ker),
+                            data = Kuitub29.9.2015)
+AKuitub23.10.2015Mult <- aov(Smgkg ~ factor(lan) *factor(kas) + factor(ker),
+                             data = Kuitub23.10.2015)
+AKuitub15.11.2015Mult <- aov(Smgkg ~ factor(lan) *factor(kas) + factor(ker),
+                             data = Kuitub15.11.2015)
+AKuitub22.4.2016Mult <- aov(Smgkg ~ factor(lan) * factor(kas) + factor(ker),
+                            data = Kuitub22.4.2016)
+AKuitub12.9.2016Mult <- aov(Smgkg ~ factor(lan) * factor(kas) + factor(ker),
+                            data = Kuitub12.9.2016)
+
+#Tukey
+TKuitub29.9.2015Mult <- TukeyHSD(AKuitub29.9.2015Mult,   "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub23.10.2015Mult <- TukeyHSD(AKuitub23.10.2015Mult, "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub15.11.2015Mult <- TukeyHSD(AKuitub15.11.2015Mult, "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub22.4.2016Mult <- TukeyHSD(AKuitub22.4.2016Mult,   "factor(lan):factor(kas)", conf.level = 0.95)
+TKuitub12.9.2016Mult <- TukeyHSD(AKuitub12.9.2016Mult,   "factor(lan):factor(kas)", conf.level = 0.95)
+
+#Group differences, labels
+#Labels
+Label29.9.2015Mult <-generate_label_df(TKuitub29.9.2015Mult,   "factor(lan):factor(kas)")
+Label23.10.2015Mult <-generate_label_df(TKuitub23.10.2015Mult, "factor(lan):factor(kas)")
+Label15.11.2015Mult <-generate_label_df(TKuitub15.11.2015Mult, "factor(lan):factor(kas)")
+Label22.4.2016Mult <-generate_label_df(TKuitub22.4.2016Mult,   "factor(lan):factor(kas)")
+Label12.9.2016Mult <-generate_label_df(TKuitub12.9.2016Mult,   "factor(lan):factor(kas)")
+
+#Pelkkä lannoituksen analyysi riittää
+
+#R
+AKuitub29.9.2015R <- aov(nitN ~ factor(lan)  + factor(ker),
+                         data = Kuitub29.9.2015R)
+AKuitub23.10.2015R <- aov(nitN ~ factor(lan) + factor(ker),
+                          data = Kuitub23.10.2015R)
+AKuitub15.11.2015R <- aov(nitN ~ factor(lan) + factor(ker),
+                          data = Kuitub15.11.2015R)
+AKuitub22.4.2016R <- aov(nitN ~ factor(lan)  + factor(ker),
+                         data = Kuitub22.4.2016R)
+AKuitub12.9.2016R <- aov(nitN ~ factor(lan)  + factor(ker),
+                         data = Kuitub22.4.2016R)
+
+TKuitub29.9.2015R <- TukeyHSD(AKuitub29.9.2015R,   "factor(lan)", conf.level = 0.95)
+TKuitub23.10.2015R <- TukeyHSD(AKuitub23.10.2015R, "factor(lan)", conf.level = 0.95)
+TKuitub15.11.2015R <- TukeyHSD(AKuitub15.11.2015R, "factor(lan)", conf.level = 0.95)
+TKuitub22.4.2016R <- TukeyHSD(AKuitub22.4.2016R,   "factor(lan)", conf.level = 0.95)
+TKuitub12.9.2016R <- TukeyHSD(AKuitub12.9.2016R,   "factor(lan)", conf.level = 0.95)
+
+
+#Labels
+Label29.9.2015R <-generate_label_df(TKuitub29.9.2015R,   "factor(lan)")
+Label23.10.2015R <-generate_label_df(TKuitub23.10.2015R, "factor(lan)")
+Label15.11.2015R <-generate_label_df(TKuitub15.11.2015R, "factor(lan)")
+Label22.4.2016R <-generate_label_df(TKuitub22.4.2016R,   "factor(lan)")
+Label12.9.2016R <-generate_label_df(TKuitub12.9.2016R,   "factor(lan)")
+
+ 
