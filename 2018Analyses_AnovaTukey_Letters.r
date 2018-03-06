@@ -389,15 +389,15 @@ write.table(SummaryResultsSulfate, "rawresult/SummaryResultsSulfate.csv")
 ############################################################################
 # All plants
 # Anova
-AKuitub29.9.2015 <- aov(Smgkg ~ factor(lan) + factor(kas),
+AKuitub29.9.2015 <- aov(Smgkg ~ factor(lan) + factor(ker),
                         data = Kuitub29.9.2015)
-AKuitub23.10.2015 <- aov(Smgkg ~ factor(lan) + factor(kas),
+AKuitub23.10.2015 <- aov(Smgkg ~ factor(lan) + factor(ker),
                          data = Kuitub23.10.2015)
-AKuitub15.11.2015 <- aov(Smgkg ~ factor(lan) + factor(kas),
+AKuitub15.11.2015 <- aov(Smgkg ~ factor(lan) + factor(ker),
                          data = Kuitub15.11.2015)
-AKuitub22.4.2016 <- aov(Smgkg ~ factor(lan) + factor(kas),
+AKuitub22.4.2016 <- aov(Smgkg ~ factor(lan) + factor(ker),
                         data = Kuitub22.4.2016)
-AKuitub12.9.2016 <- aov(Smgkg ~ factor(lan) + factor(kas),
+AKuitub12.9.2016 <- aov(Smgkg ~ factor(lan) + factor(ker),
                         data = Kuitub12.9.2016)
 
 
