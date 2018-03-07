@@ -11,19 +11,23 @@ output: html_document
 **TO DO**
 
 Laske hehtaarikohtaiset erot
-Laske erot vuosien valilla s1-4 vs mineraali
+Laske erot vuosien valilla s1-4 vs mineraali tehty
 Laske kasvikasittelyjen erot
 Tee kuva kasvieroista?
 GLM tai Mixed malli jossa aika ja hiilityppisuhde?
+Kuvien tuottaminen kansioon
+Pohjamaa kuva(pinta ja pohjamaa samoista käsittelyistä samaan kuvaan?)
 
-Aineistona on kolmevuotinen kenttäkoe. Kokeessa oli mukana kuusi lannoituskäsittelyä ja neljä kasvikäsittelyä.
-Kokessa tarkasteltiin lannoitteiden ja kasvikäsittelyiden vaikutusta nitraatti- ja sulfaattipitoisuuksiin peltomaassa. Huuhtoumalle altis typpi väheni rukiilla mahdollisesti lisätyn hiilen vaikutuksesta ensimmäisenä vuonna  **-62 % p>0.05**, toisena vuonna **y** ja kolmantena vuonna **+7% p>0.05** verrattuna pelkkään kemialliseen lannoitukseen. Mittaukset tehtiin syksyllä ja kerran kevaalla. Lannoitteet lisäsivät sulfaattipitoisuuksia ensimmäisenä vuonna **64 %**, mutta toisen vuoden jälkeen sulfaattipitoisuus oli palautunut alkuperäiselle tasolle.
+Aineistona on kolmevuotinen kenttäkoe. Kokeessa oli mukana kuusi lannoituskäsittelyä ja neljä kasvikäsittelyä. Kokessa tarkasteltiin lannoitteiden ja kasvikäsittelyiden vaikutusta nitraatti- ja sulfaattipitoisuuksiin peltomaassa. Huuhtoumalle altis typpi väheni rukiilla mahdollisesti lisätyn hiilen vaikutuksesta (S1-S4 vs Mineraali) ensimmäisenä vuonna  keskimäärin **-62 % p<0.05**, verrattuna pelkkään kemialliseen lannoitukseen. Toisena vuonna **+10 % p>0.05** ja kolmantena vuonna **+7% p>0.05** vaikutus oli neutraali (ei tilastollisesti merkitseviä). Kokeessa mitattiin kolmena vuontena syksyllä ja kerran keväällä. Lannoitteet lisäsivät sulfaattipitoisuuksia ensimmäisenä vuonna **+64 % p<0.05**, mutta toisen vuoden jälkeen sulfaattipitoisuus oli palautunut lähes alkuperäiselle tasolle (ei tilastollisesti merkitsevä).
 
+Excel tiedostossa on myös tulokset kg/ha ja absoluuttisina määrinä sekä yksityskohtaisemmat tulokset tilastollisista testeistä.
+
+Simple summary could be added:
 We are looking at the nitrates in soil in a multi-year field growing experiment. The dataset consist of six  different fertilizer treatments. There are four plant treatments. The target variables were nitrate and sulfur in the soil. Leaching of the nitrogen was reduced by added carbon in first year **x** second year **y** and third year **z** amount in autumn. The fertilizers increased sulfphate after fertilization, but after second year there were trace amounts.
 
 The analyses are written in Finnish.
 
-Metodina on ANOVA kaikille ajankohdille erikseen, jonka jälkeen Tukey HSD lannoitukselle. 
+Metodina on ANOVA kaikille ajankohdille erikseen, jonka jälkeen Tukey HSD lannoitukselle.  
 
 ### Selite:
 
@@ -452,12 +456,12 @@ combined_plot <- combined_plot + geom_errorbar(data = summary_data,
                                                aes(x = lan, y = avg_value,
                                                    ymax = avg_value + sd,ymin = avg_value - sd), 
                                                width=0.1, colour="black")
-combined_plot <- combined_plot + annotate("text",x="S1",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="S2",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="S3",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="S4",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="Min",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="C",y=0,label="n=4")
+combined_plot <- combined_plot + annotate("text",x="S1",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="S2",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="S3",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="S4",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="Min",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="C",y=0,label="n=16")
 combined_plot <- combined_plot + geom_text(data=summary_data,aes(x=lan,y=avg_value+se+15,label=labels))
 combined_plot + ggtitle("Kaikki kasvit + Sulfaatti @ 15.11.2015")
 ```
@@ -518,17 +522,17 @@ combined_plot <- combined_plot + geom_errorbar(data = summary_data,
                                                aes(x = lan, y = avg_value,
                                                    ymax = avg_value + sd,ymin = avg_value - sd), 
                                                width=0.1, colour="black")
-combined_plot <- combined_plot + annotate("text",x="S1",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="S2",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="S3",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="S4",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="Min",y=0,label="n=4")
-combined_plot <- combined_plot + annotate("text",x="C",y=0,label="n=4")
+combined_plot <- combined_plot + annotate("text",x="S1",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="S2",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="S3",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="S4",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="Min",y=0,label="n=16")
+combined_plot <- combined_plot + annotate("text",x="C",y=0,label="n=16")
 combined_plot <- combined_plot + geom_text(data=summary_data,aes(x=lan,y=avg_value+se+15,label=labels))
 combined_plot + ggtitle("Kaikki kasvit + Sulfaatti @ 12.9.2016")
 ```
 
-Käsittelyt S1-S3 ja mineraaali ovat samoja, S4 ja kontrolli eroavat toisistaan ja muista käsittelyistä. S4 eron selittää kaksi poikkeavaa havaintoa, jotka voi olla sattumaa. Kasvikäsittelyillä ei ollut merkitsevää eroa, ja siksi käsittelyt on tässä yhdistetty. Käytännössä lannoitteiden rikkiä lisäävä vaikutus kestää kaksi satokautta.
+Käsittelyt S1-S3 ja mineraaali ovat samoja, S4 ja kontrolli eroavat toisistaan ja muista käsittelyistä. S4 eron selittää kaksi poikkeavaa havaintoa, jotka voivat olla sattumaa. Kasvikäsittelyillä ei ollut merkitsevää eroa, ja siksi käsittelyt on tässä yhdistetty. Käytännössä lannoitteiden rikkiä lisäävä vaikutus kestää kaksi satokautta.
 
 ```{r, message=FALSE, warning=FALSE}
 fit <- aov(Smgkg ~ factor(lan) + factor(ker),
@@ -546,5 +550,40 @@ TukeyHSD(fit, "factor(lan)", conf.level = 0.95)
 ```
 
 
+Analysoitu seuraavilla ohjelmistoilla sessionInfo(): 
+R version 3.4.3 (2017-11-30)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows >= 8 x64 (build 9200)
 
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=Finnish_Finland.1252  LC_CTYPE=Finnish_Finland.1252   
+[3] LC_MONETARY=Finnish_Finland.1252 LC_NUMERIC=C                    
+[5] LC_TIME=Finnish_Finland.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] multcompView_0.1-7 ggthemes_3.4.0     devtools_1.13.5    GGally_1.3.2      
+ [5] corrplot_0.84      forcats_0.3.0      stringr_1.3.0      purrr_0.2.4       
+ [9] readr_1.1.1        tidyr_0.8.0        tibble_1.4.2       ggplot2_2.2.1     
+[13] tidyverse_1.2.1    plyr_1.8.4         dplyr_0.7.4        broom_0.4.3       
+[17] easypackages_0.1.0
+
+loaded via a namespace (and not attached):
+ [1] reshape2_1.4.3     haven_1.1.1        lattice_0.20-35    colorspace_1.3-2  
+ [5] htmltools_0.3.6    yaml_2.1.17        rlang_0.2.0        pillar_1.2.1      
+ [9] foreign_0.8-69     glue_1.2.0         withr_2.1.1        RColorBrewer_1.1-2
+[13] modelr_0.1.1       readxl_1.0.0       bindrcpp_0.2       bindr_0.1         
+[17] munsell_0.4.3      gtable_0.2.0       cellranger_1.1.0   rvest_0.3.2       
+[21] psych_1.7.8        memoise_1.1.0      evaluate_0.10.1    knitr_1.20        
+[25] parallel_3.4.3     Rcpp_0.12.15       backports_1.1.2    scales_0.5.0      
+[29] jsonlite_1.5       mnormt_1.5-5       hms_0.4.1          digest_0.6.15     
+[33] stringi_1.1.6      grid_3.4.3         rprojroot_1.3-2    cli_1.0.0         
+[37] tools_3.4.3        magrittr_1.5       lazyeval_0.2.1     crayon_1.3.4      
+[41] pkgconfig_2.0.1    xml2_1.2.0         lubridate_1.7.2    reshape_0.8.7     
+[45] assertthat_0.2.0   rmarkdown_1.9      httr_1.3.1         rstudioapi_0.7    
+[49] R6_2.2.2           nlme_3.1-131       compiler_3.4.3 
 
