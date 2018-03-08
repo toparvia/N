@@ -15,7 +15,7 @@ Laske erot vuosien valilla s1-4 vs mineraali tehty
 Laske kasvikasittelyjen erot
 Tee kuva kasvieroista?
 GLM tai Mixed malli jossa aika ja hiilityppisuhde?
-Kuvien tuottaminen kansioon
+Kuvien tuottaminen kansioon Functio toimii!
 Pohjamaa kuva(pinta ja pohjamaa samoista käsittelyistä samaan kuvaan?)
 
 Aineistona on kolmevuotinen kenttäkoe. Kokeessa oli mukana kuusi lannoituskäsittelyä ja neljä kasvikäsittelyä. Kokessa tarkasteltiin lannoitteiden ja kasvikäsittelyiden vaikutusta nitraatti- ja sulfaattipitoisuuksiin peltomaassa. Huuhtoumalle altis typpi väheni rukiilla mahdollisesti lisätyn hiilen vaikutuksesta (S1-S4 vs Mineraali) ensimmäisenä vuonna  keskimäärin **-62 % p<0.05**, verrattuna pelkkään kemialliseen lannoitukseen. Toisena vuonna **+10 % p>0.05** ja kolmantena vuonna **+7% p>0.05** vaikutus oli neutraali (ei tilastollisesti merkitseviä). Kokeessa mitattiin kolmena vuontena syksyllä ja kerran keväällä. Lannoitteet lisäsivät sulfaattipitoisuuksia ensimmäisenä vuonna **+64 % p<0.05**, mutta toisen vuoden jälkeen sulfaattipitoisuus oli palautunut lähes alkuperäiselle tasolle (ei tilastollisesti merkitsevä).

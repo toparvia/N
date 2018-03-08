@@ -38,6 +38,50 @@ Kuitub$kas <- factor(Kuitub$kas,
 Kuitub$time <- factor(Kuitub$time,
                       levels = c(1,2,3,4,5,6),
                       labels = c("29.9.2015", "23.10.2015", "15.11.2015", "22.4.2016", "12.9.2016", "16.10.2017"))
+###################################################################################################################
+#Subsets
+#all plants
+Kuitub29.9.2015  = Kuitub[ which(Kuitub$time=='29.9.2015')  , ]
+Kuitub23.10.2015 = Kuitub[ which(Kuitub$time=='23.10.2015') , ]
+Kuitub15.11.2015 = Kuitub[ which(Kuitub$time=='15.11.2015') , ]
+Kuitub22.4.2016  = Kuitub[ which(Kuitub$time=='22.4.2016')  , ]
+Kuitub12.9.2016  = Kuitub[ which(Kuitub$time=='12.9.2016')  , ]
+Kuitub16.10.2017 = Kuitub[ which(Kuitub$time=='16.10.2017') , ]
+
+#Plants seperately labels = c("R", "KK", "P","AK"))
+#R
+Kuitub29.9.2015R  = Kuitub[ which(Kuitub$time=='29.9.2015'  & Kuitub$kas == "R" ), ]
+Kuitub23.10.2015R = Kuitub[ which(Kuitub$time=='23.10.2015' & Kuitub$kas == "R" ), ]
+Kuitub15.11.2015R = Kuitub[ which(Kuitub$time=='15.11.2015' & Kuitub$kas == "R" ), ]
+Kuitub22.4.2016R  = Kuitub[ which(Kuitub$time=='22.4.2016'  & Kuitub$kas == "R" ), ]
+Kuitub12.9.2016R  = Kuitub[ which(Kuitub$time=='12.9.2016'  & Kuitub$kas == "R" ), ]
+Kuitub16.10.2017R = Kuitub[ which(Kuitub$time=='16.10.2017' & Kuitub$kas == "R" ), ]
+
+#KK
+Kuitub29.9.2015KK  = Kuitub[ which(Kuitub$time=='29.9.2015'  & Kuitub$kas == "KK" ), ]
+Kuitub23.10.2015KK = Kuitub[ which(Kuitub$time=='23.10.2015' & Kuitub$kas == "KK" ), ]
+Kuitub15.11.2015KK = Kuitub[ which(Kuitub$time=='15.11.2015' & Kuitub$kas == "KK" ), ]
+Kuitub22.4.2016KK  = Kuitub[ which(Kuitub$time=='22.4.2016'  & Kuitub$kas == "KK" ), ]
+Kuitub12.9.2016KK  = Kuitub[ which(Kuitub$time=='12.9.2016'  & Kuitub$kas == "KK" ), ]
+Kuitub16.10.2017KK = Kuitub[ which(Kuitub$time=='16.10.2017' & Kuitub$kas == "KK" ), ]
+
+#P
+Kuitub29.9.2015P  = Kuitub[ which(Kuitub$time=='29.9.2015'  & Kuitub$kas == "P" ), ]
+Kuitub23.10.2015P = Kuitub[ which(Kuitub$time=='23.10.2015' & Kuitub$kas == "P" ), ]
+Kuitub15.11.2015P = Kuitub[ which(Kuitub$time=='15.11.2015' & Kuitub$kas == "P" ), ]
+Kuitub22.4.2016P  = Kuitub[ which(Kuitub$time=='22.4.2016'  & Kuitub$kas == "P" ), ]
+Kuitub12.9.2016P  = Kuitub[ which(Kuitub$time=='12.9.2016'  & Kuitub$kas == "P" ), ]
+Kuitub16.10.2017P = Kuitub[ which(Kuitub$time=='16.10.2017' & Kuitub$kas == "P" ), ]
+
+#AK
+Kuitub29.9.2015AK  = Kuitub[ which(Kuitub$time=='29.9.2015'  & Kuitub$kas == "AK" ), ]
+Kuitub23.10.2015AK = Kuitub[ which(Kuitub$time=='23.10.2015' & Kuitub$kas == "AK" ), ]
+Kuitub15.11.2015AK = Kuitub[ which(Kuitub$time=='15.11.2015' & Kuitub$kas == "AK" ), ]
+Kuitub22.4.2016AK  = Kuitub[ which(Kuitub$time=='22.4.2016'  & Kuitub$kas == "AK" ), ]
+Kuitub12.9.2016AK  = Kuitub[ which(Kuitub$time=='12.9.2016'  & Kuitub$kas == "AK" ), ]
+Kuitub16.10.2017AK = Kuitub[ which(Kuitub$time=='16.10.2017' & Kuitub$kas == "AK" ), ]
+
+
 
 ###################################################################################################################
 #Functions
