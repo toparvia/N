@@ -262,6 +262,96 @@ MakeTukeyPlotnitN <- function(data,title,lettersTUKEY) {
   # + geom_text(data=summary_data,aes(x=lan,y=avg_value+se+3,label=labels)) old
   }
 
+##################################################################################################
+#Function that calculates the labels as well if the values are not input
+
+MakeTukeyPlotSmgkg <- function(data,title,lettersTUKEY) {
+  if(missing(lettersTUKEY)) {
+    lettersTUKEY <- "noinput"
+  }
+  
+  summary_data <- ddply(data,
+                        c("lan"),
+                        summarise,
+                        N = length(Smgkg),
+                        avg_value = mean(Smgkg),
+                        sd = sd(Smgkg),
+                        se = sd/sqrt(N)
+                        
+  )
+  max_value = max(data$Smgkg) #this is place for the significance level
+  
+  # This function generates Tukey HSD plot with significanse levels
+  # data refers to nitrate values, treatment levels
+  # title is the plot title
+  # lettersTUKEY is the singificance a vector with letter equal to number to treatment levels
+  # If lettersTUKEY is missing, it is automatically calculated using TUKEY HSD and multicompView
+  
+  # check out the summary stats 
+  #summary_data
+  
+  
+  # Käsittelyjen keskiarvot, keskihajonnat sekä keskivirheet.
+  
+  
+  # Plotting
+  raw_plot <- ggplot(data, aes(x=lan,y=Smgkg))
+  raw_plot <- raw_plot + geom_point(position = position_jitter(w=0.2),alpha=0.4, colour="grey58")
+  raw_plot <- raw_plot + xlab("")
+  raw_plot <- raw_plot + ylab(expression(paste("Sulfaatti ", SO[4],"-"," (mg/kg)", sep="")))
+  raw_plot <- raw_plot #+ ylim(0,15)
+  raw_plot <- raw_plot + theme_tufte(base_size=18)+geom_rangeframe(color="black")
+  
+  
+  # Kuitub1$lan <- factor(Kuitub1$lan, levels=c("S1", "S2", "S3", "S4", "Min", "C"))
+  # To change the order, not needed now.
+  
+  # we'll also do this for the summary data and use it later on 
+  # summary_data$treatment <- factor(summary_data$treatment, levels=("S1", "S2", "S3", "S4", "Min", "C"))
+  
+  #Make labels
+  summary_data$labels <- lettersTUKEY
+  if(identical(lettersTUKEY,"noinput")){
+    
+    Tukey.levels <- aov(Smgkg ~ factor(lan) + factor(ker),
+                        data = data)
+    
+    Tukey.levels <- TukeyHSD(Tukey.levels,   "factor(lan)", conf.level = 0.95)
+    
+    variable <- "factor(lan)"
+    Tukey.levels <- Tukey.levels[[variable]][,4]
+    Tukey.labels <- data.frame(multcompLetters(Tukey.levels)['Letters'])
+    
+    #I need to put the labels in the same order :
+    Tukey.labels$variable=rownames(Tukey.labels)
+    labelslan = c("S1", "S2", "S3","S4", "Min", "C")
+    Tukey.labels=Tukey.labels[order(match(Tukey.labels$variable,labelslan)),]
+    
+    #Just for error solving
+    #print(Tukey.labels[1])
+    #print(Tukey.levels)
+    #print(summary(Tukey.levels))
+    #summary_data$labels <- Tukey.labels[1]
+    #dummy <- c("a","a","a","a","b","c")
+    #print("Tukey HSD letters calculated automatically from the data. You can input your own giving vector of the letters")
+    summary_data$labels <- Tukey.labels[1]
+  }
+  
+  combined_plot <- raw_plot + geom_point(data=summary_data, aes(x=lan,y=avg_value), colour="black", size=3)
+  combined_plot <- combined_plot + geom_errorbar(data = summary_data,
+                                                 aes(x = lan, y = avg_value,
+                                                     ymax = avg_value + sd,ymin = avg_value - sd), 
+                                                 width=0.1, colour="black")
+  combined_plot <- combined_plot + annotate("text",x="S1",y=0,label="n=4")
+  combined_plot <- combined_plot + annotate("text",x="S2",y=0,label="n=4")
+  combined_plot <- combined_plot + annotate("text",x="S3",y=0,label="n=4")
+  combined_plot <- combined_plot + annotate("text",x="S4",y=0,label="n=4")
+  combined_plot <- combined_plot + annotate("text",x="Min",y=0,label="n=4")
+  combined_plot <- combined_plot + annotate("text",x="C",y=0,label="n=4")
+  combined_plot <- combined_plot + geom_text(data=summary_data,aes(x=lan,y=max_value, label=labels))
+  combined_plot + ggtitle(title)
+  # + geom_text(data=summary_data,aes(x=lan,y=avg_value+se+3,label=labels)) old
+}
 
 # example to show how ordering part of the function is build
 # First solution, gives C, Min, S1 order...

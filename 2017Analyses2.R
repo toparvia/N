@@ -1,9 +1,39 @@
 # Analyses in 2017
+
+# **TO DO**
+#   
+#   Laske hehtaarikohtaiset erot
+# Laske erot vuosien valilla s1-4 vs mineraali tehty
+# Laske kasvikasittelyjen erot
+# Tee kuva kasvieroista?
+#   GLM tai Mixed malli jossa aika ja hiilityppisuhde?
+#   Kuvien tuottaminen kansioon Functio toimii!
+#   Pohjamaa kuva(pinta ja pohjamaa samoista käsittelyistä samaan kuvaan?)
+
+
+
+
 require("easypackages") # for loading and installing many packages at one time
 packages_to_load <- c("broom", "dplyr", "tidyverse", "corrplot", "ggplot2", "GGally", "devtools", "ggthemes")
 packages(packages_to_load, prompt = TRUE) # lock'n'load install/load
 
+Kp <- read.table(file = "pohjamaa_all.txt",
+                     header = TRUE,
+                     dec = ".")
 
+Kp$Smgkg <- as.numeric(as.character(Kp$Smgkg))
+Kp$time=factor(Kp$time)
+Kp$lan <- factor(Kp$lan,
+                 levels = c(4,5),
+                 labels = c("S4", "Min"))
+Kp$kas <- factor(Kp$kas,
+                 levels = c(1,3,4),
+                 labels = c("R", "P","AK"))
+Kp$time <- factor(Kp$time,
+                      levels = c(1,2,3),
+                      labels = c("15.11.2015", "2.5.2016", "13.9.2016"))
+
+################################################################################
 Kuitub <- read.table(file = "d1alln2017.txt",
                      header = TRUE,
                      dec = ".")
@@ -45,6 +75,20 @@ p <- ggplot(Kuitub, aes(kas, nitN))
 p + geom_boxplot(aes(fill = lan)) +theme_tufte()+geom_rangeframe(color="black") +
   ggtitle("All measurement average nitrate NO3- (mg/kg) with standard deviation")
 
+
+p <- ggplot(Kp, aes(kas, nitN, time))
+p + geom_boxplot(aes(group=interaction(lan, time))) +theme_tufte()+geom_rangeframe(color="black") +
+  ggtitle("All measurement nitrate NO3- (mg/kg) with standard deviation")
+
+Kp$lantime <- interaction(Kp$lan, Kp$time)
+ggplot(aes(y = nitN, x = lantime), data = Kp) + geom_boxplot()+theme_tufte()+geom_rangeframe(color="black") +
+  ggtitle("50-60 cm nitrate NO3- (mg/kg) with standard deviation")
+
+p <- ggplot(Kp, aes(kas, nitN, time))
+p + geom_boxplot(aes(group=interaction(lan, time))) +theme_tufte()+geom_rangeframe(color="black") +
+  ggtitle("50-60 cm nitrate NO3- (mg/kg) with standard deviation")
+
+
 Kuitub2 = Kuitub[ which(Kuitub$time=="xx.10.2017"), ]
 p <- ggplot(Kuitub2, aes(kas, nitN))
 p + geom_boxplot(aes(fill = lan)) +theme_tufte()+geom_rangeframe(color="black") +
@@ -66,6 +110,14 @@ TukeyHSD(fit, "factor(lan)", ordered = TRUE)
 
 plot(TukeyHSD(fit, "factor(lan)", conf.level = 0.99))
 plot(TukeyHSD(fit, "factor(kas)", conf.level = 0.99))
+
+tfit <- TukeyHSD(fit,"factor(lan):factor(kas)", ordered = TRUE,conf.level = 0.95)
+
+#as.data.frame(tidy(res,Model)) %>% 
+
+filter(tidy(tfit),adj.p.value < .05)
+
+as.data.frame(tfit)
 
 ###
 fitm1 <- lm(nitN ~  KuitLisKokN + KuitLisN + TOCN + TOCNliu+ LisC,
@@ -189,6 +241,7 @@ plotTukeysHSD(t.fit)
 
 TukeyHSD(fit, "factor(kas)", ordered = TRUE)
 TukeyHSD(fit, "factor(lan)", ordered = TRUE)
+
 
 plot(TukeyHSD(fit, "factor(lan)", conf.level = 0.99))
 plot(TukeyHSD(fit, "factor(kas)", conf.level = 0.99))
