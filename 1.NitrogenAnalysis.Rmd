@@ -170,6 +170,49 @@ print(gline_final + theme(axis.text.x = element_text(angle=60, hjust=1)))
 
 Kaikki käsittelyt graafisesti esitettynä. Erot ovat aluksi suurempia ja pienevät kohti kokeen loppua. 12.9.2016 erot ovat toisinpäin. Todennäköisesti typpi on alkanut vapautua orgaanisesta aineesta.
 
+```{r, message=FALSE, warning=FALSE}
+# The numbers are changed to kg/ha by multiplying by 2.5 (2500 tons soil weight / 1000 to kg )
+#KuituR  = Kuitub[complete.cases(Kuitub), ]
+#KuituRs = Kuitub
+Kuitub$nitN = Kuitub$nitN * 2.5
+agg = ddply(Kuitub, .(kas, lan, time), function(x){
+  c(mean=mean(x$nitN), sd = sd(x$nitN))
+})
+
+#agg #contains all nitN treatment means and standard deviations
+#write.table(agg, "nitNmeans6times.txt", sep="\t")
+
+agg$lower = agg$mean + agg$sd
+agg$upper = agg$mean - agg$sd
+
+#agg #contains mean, sd, upr, and lwr confidence levels
+
+pd <- position_dodge(width = 0.2) # move them .2 to the left and right
+
+#FIRST RUN ONE OF THESE
+
+#Plot2x4
+gbase  = ggplot(agg, aes(y=mean, colour=lan)) +
+  geom_errorbar(aes(ymin=lower, ymax=upper), width=.3, position=pd) +
+  geom_point(position=pd) + facet_wrap(~ kas, ncol=2)
+gline = gbase + geom_line(position=pd) + ylim(0, 25)
+
+agg$num_time = NA
+agg$num_time = as.numeric(agg$time)
+
+#for all graphs
+gline = gline %+% agg
+
+gline_final = gline + aes(x=num_time) + scale_x_continuous(breaks= 1:length(agg$time), labels = agg$time) +
+    labs(x = "Aika", y = "Nitraatin NO3- (kg/ha) keskiarvo sekä keskihajonta")+
+    theme_tufte()+
+    geom_rangeframe(color="black")
+
+#Final graph
+print(gline_final + theme(axis.text.x = element_text(angle=60, hjust=1)))
+```
+
+Kiloa nitraattia hehtaarille. Kaikki käsittelyt graafisesti esitettynä nitraattia (kg/ha). Erot ovat aluksi suurempia ja pienevät kohti kokeen loppua. 12.9.2016 erot ovat toisinpäin. Todennäköisesti typpi on alkanut vapautua orgaanisesta aineesta.
 
 ```{r, message=FALSE, warning=FALSE}
 Kp <- read.table(file = "pohjamaa_all.txt",
