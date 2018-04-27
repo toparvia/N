@@ -173,9 +173,9 @@ Kaikki käsittelyt graafisesti esitettynä. Erot ovat aluksi suurempia ja pienev
 ```{r, message=FALSE, warning=FALSE}
 # The numbers are changed to kg/ha by multiplying by 2.5 (2500 tons soil weight / 1000 to kg )
 #KuituR  = Kuitub[complete.cases(Kuitub), ]
-#KuituRs = Kuitub
-Kuitub$nitN = Kuitub$nitN * 2.5
-agg = ddply(Kuitub, .(kas, lan, time), function(x){
+KuituR = Kuitub
+KuituR$nitN = KuituR$nitN * 2.5
+agg = ddply(KuituR, .(kas, lan, time), function(x){
   c(mean=mean(x$nitN), sd = sd(x$nitN))
 })
 
@@ -195,7 +195,7 @@ pd <- position_dodge(width = 0.2) # move them .2 to the left and right
 gbase  = ggplot(agg, aes(y=mean, colour=lan)) +
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.3, position=pd) +
   geom_point(position=pd) + facet_wrap(~ kas, ncol=2)
-gline = gbase + geom_line(position=pd) + ylim(0, 25)
+gline = gbase + geom_line(position=pd) + ylim(0,max(agg$mean)+5)
 
 agg$num_time = NA
 agg$num_time = as.numeric(agg$time)
